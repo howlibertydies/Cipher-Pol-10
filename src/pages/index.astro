@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 ---
 
-<Layout title="Welcome to Cipher Pol 10.">
+<Layout title="Cipher Pol 10">
   <main>
     <div class="mt-28 w-full">
       <span class="gradient-text text-8xl">Welcome to Cipher Pol 10 <span class="gradient-subtext text-5xl w-full font-semibold mt-0 lg:mt-5">Encrypt and Decrypt <span class="font-bold">everything</span></span>	</span>
@@ -12,7 +12,7 @@ import Card from '../components/Card.astro';
     <div class="card-container rounded-md">
 		<ul role="list" class="link-card-grid">
 		  <Card
-			href=""
+			href="/caesar-cipher"
 			title="Caesar Cipher"
 			body="Learn about the Caesar cipher and how it works"
 		  />
@@ -40,6 +40,16 @@ import Card from '../components/Card.astro';
 			href=""
 			title="Base64 Cipher"
 			body="Learn about the Base64 cipher and how it works"
+		  />
+      <Card
+			href=""
+			title="Atbash Cipher"
+			body="Learn about the Atbash cipher and how it works"
+		  />
+      <Card
+			href=""
+			title="Morse Code Cipher"
+			body="Learn about the More Code cipher and how it works"
 		  />
 		</ul>
 	  </div>
@@ -102,4 +112,5 @@ import Card from '../components/Card.astro';
     gap: 2rem;
     padding: 0;
   }
+  
 </style>

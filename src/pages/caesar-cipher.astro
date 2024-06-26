@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Caesar Cipher">
+  <main>
+    <div class="mt-28 w-full">
+      <span class="gradient-text text-8xl">Caesar Cipher <span class="gradient-subtext text-5xl w-full font-semibold mt-0 lg:mt-5">Encrypt and Decrypt your message with the <span class="font-bold">Caesar Cipher</span></span></span>
+    </div>
+    <div class="gradient-line mt-10 mb-20"></div>
+    <div class="card-container rounded-md">
+      <div class="text-sm font-semibold">ENTER IN TEXT TO ENCRYPT</div>
+      <div class="textbox">
+        <div contenteditable="true" class="input-text" id="inputText"></div>
+      </div>
+      <div class="button-container flex items-center justify-center mt-5 mb-5">
+        <div class="gradient-line-half"></div>
+        <button class="translate-button text-sm font-semibold" onclick="handleTranslate()">TRANSLATE</button>
+        <div class="gradient-line-half-two"></div>
+      </div>
+      <div id="cipherResults" class="mt-10 font-semibold"></div>
+    </div>
+  </main>
+</Layout>
+
+<script is:inline>
+  function caesarCipher(text, shift) {
+    shift = parseInt(shift);
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+      let char = text[i];
+      if (char.match(/[a-z]/i)) {
+        let code = text.charCodeAt(i);
+        if (code >= 65 && code <= 90) {
+          char = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+        }
+        else if (code >= 97 && code <= 122) {
+          char = String.fromCharCode(((code - 97 + shift) % 26) + 97);
+        }
+      }
+      result += char;
+    }
+    return result;
+  }
+
+  function handleTranslate() {
+    const inputElement = document.getElementById('inputText');
+    const inputText = inputElement.innerText.trim(); // Get the input text
+
+    const cipherResultsElement = document.getElementById('cipherResults');
+    cipherResultsElement.innerHTML = ''; // Clear previous results
+
+    for (let shift = 0; shift < 26; shift++) {
+      const cipheredText = caesarCipher(inputText, shift);
+      const resultElement = document.createElement('div');
+      resultElement.textContent = `Shift ${shift}: ${cipheredText}`;
+      cipherResultsElement.appendChild(resultElement);
+    }
+    console.log(cipherResultsElement.innerHTML)
+  }
+</script>
+
+<style>
+  main {
+    width: 100%;
+    padding: 4rem;
+    max-width: calc(100% - 2rem);
+    color: #677699;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  .gradient-text {
+    font-weight: 700;
+    text-align: left;
+    background-image: linear-gradient(to right, #ABC4FF, #677699);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gradient-subtext {
+    margin-right: 1em;
+    text-align: left;
+    margin-bottom: 1em;
+    background-image: linear-gradient(to left, #ABC4FF, #677699);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gradient-line {
+    height: 4px;
+    background: linear-gradient(to right, #ABC4FF, #677699);
+  }
+  .gradient-line-half {
+    height: 4px;
+    background: linear-gradient(to right, #ABC4FF, #677699);
+    flex: 1;
+  }
+  .gradient-line-half-two {
+    height: 4px;
+    background: linear-gradient(to left, #ABC4FF, #677699);
+    flex: 1;
+  }
+  .card-container {
+    border: 4px solid;
+    border-image: linear-gradient(to right, #ABC4FF, #677699) 1;
+    border-radius: 16px;
+    padding: 1rem;
+  }
+  .textbox {
+    width: 100%;
+    min-height: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    overflow: hidden;
+  }
+  .input-text {
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    border: none;
+    background-color: white;
+    font-size: 16px;
+    color: black;
+    resize: none;
+  }
+  .button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .translate-button {
+    background-color: transparent;
+    border: 3px solid #677699;
+    font-size: 16px;
+    color: #677699;
+    padding: 8px 16px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .translate-button:hover {
+    background-color: #677699;
+    color: white;
+  }
+  .translate-button:active {
+    background-color: #ABC4FF;
+    color: white;
+  }
+</style>
